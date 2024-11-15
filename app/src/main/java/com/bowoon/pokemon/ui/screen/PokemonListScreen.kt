@@ -30,39 +30,10 @@ import com.bowoon.pokemon.ui.activities.PokemonRoute
 import com.bowoon.pokemon.ui.vm.PokemonVM
 
 @Composable
-fun MainScreen(
+fun PokemonListScreen(
     navController: NavController,
     viewModel: PokemonVM = hiltViewModel()
 ) {
-//    val scope = rememberCoroutineScope()
-//    val pokemonList = remember { mutableStateOf<List<Pokemon>?>(null) }
-//    LaunchedEffect(
-//        key1 = "loadPokemon"
-//    ) {
-//        scope.launch {
-//            viewModel.event.onEach { event ->
-//                when (event) {
-//                    is PokemonListUiState.Loading -> Log.d("PokemonList", "loading...")
-//                    is PokemonListUiState.Success -> {
-//                        Log.d("PokemonList", event.data.toString())
-//                        pokemonList.value = event.data
-//                    }
-//                    is PokemonListUiState.Error -> Log.d("PokemonList", event.throwable.message.toString())
-//                }
-//            }.collect()
-//        }
-//    }
-//
-//    LazyColumn(
-//        modifier = Modifier
-//    ) {
-//        items(
-//            items = pokemonList.value ?: emptyList(),
-//            key = { it }
-//        ) { pokemon ->
-//            PokemonItemView(navController, pokemon)
-//        }
-//    }
     val pager = remember { viewModel.pokemonPageFlow }
     val lazyPagingItems = pager.collectAsLazyPagingItems()
 

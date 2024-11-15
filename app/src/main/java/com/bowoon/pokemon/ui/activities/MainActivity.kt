@@ -25,23 +25,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.bowoon.pokemon.ui.screen.DetailScreen
-import com.bowoon.pokemon.ui.screen.MainScreen
+import com.bowoon.pokemon.ui.screen.PokemonListScreen
 import com.bowoon.pokemon.ui.theme.PokemonTheme
 import com.bowoon.pokemon.ui.theme.dp100
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
-
-enum class Screen {
-    Main,
-    Detail
-}
 
 @Serializable
 data object MainBaseRoute
 @Serializable
 data object MainRoute
 @Serializable
-data class PokemonRoute(val url: String? = null)
+data class PokemonRoute(val url: String)
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -84,7 +79,7 @@ fun InitNavHost(
                     )
                 }
             ) {
-                MainScreen(navController)
+                PokemonListScreen(navController)
             }
             composable<PokemonRoute>(
                 enterTransition = {
