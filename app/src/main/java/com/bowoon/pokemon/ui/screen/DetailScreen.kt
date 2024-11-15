@@ -7,17 +7,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.bowoon.pokemon.Log
+import com.bowoon.pokemon.ui.vm.PokemonDetailVM
 import com.bowoon.pokemon.ui.vm.PokemonUiState
-import com.bowoon.pokemon.ui.vm.PokemonVM
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @Composable
 fun DetailScreen(
-    viewModel: PokemonVM = hiltViewModel()
+    viewModel: PokemonDetailVM = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
     val state: PokemonUiState by viewModel.info.collectAsStateWithLifecycle()
