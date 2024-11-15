@@ -7,9 +7,6 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
-import java.io.File
-import java.io.FileInputStream
-import java.util.Properties
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -29,9 +26,11 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                         release {
                             isMinifyEnabled = true
                             isJniDebuggable = false
+                            buildConfigField("Boolean", "IS_DEBUGGING_LOGGING", "false")
                         }
                         debug {
                             isMinifyEnabled = false
+                            buildConfigField("Boolean", "IS_DEBUGGING_LOGGING", "true")
                         }
                     }
                 }
@@ -40,25 +39,13 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
-                "implementation"(libs.findLibrary("jetpack.core").get())
-                "implementation"(libs.findLibrary("jetpack.appcompat").get())
-                "implementation"(libs.findLibrary("google.material").get())
-                "testImplementation"(libs.findLibrary("test.junit").get())
-                "androidTestImplementation"(libs.findLibrary("test.junit.ext").get())
-                "androidTestImplementation"(libs.findLibrary("test.espresso").get())
+                "implementation"(libs.findLibrary("androidx.core.ktx").get())
+                "implementation"(libs.findLibrary("androidx.appcompat").get())
+                "implementation"(libs.findLibrary("material").get())
+                "testImplementation"(libs.findLibrary("junit").get())
+                "androidTestImplementation"(libs.findLibrary("androidx.junit").get())
+                "androidTestImplementation"(libs.findLibrary("androidx.espresso.core").get())
             }
         }
     }
-
-    private lateinit var prop: Properties
-    private fun getProp(propertyKey: String): String =
-        runCatching {
-            if (!this::prop.isInitialized) {
-                prop = Properties().apply {
-                    load(FileInputStream(File("./sign", "local.properties")))
-                }
-            }
-
-            prop.getProperty(propertyKey)
-        }.getOrDefault("\"key not found\"")
 }

@@ -22,12 +22,12 @@ jetpack-fragment = "1.8.5"
 datastore = "1.1.1"
 
 # compose
-composeBom = "2024.10.01"
+composeBom = "2024.11.00"
 activityCompose = "1.9.3"
 compose-compiler = "1.4.5"
-compose-navigation = "2.8.3"
+compose-navigation = "2.8.4"
 compose-hilt-navigation = "1.2.0"
-compose-paging = "3.3.2"
+compose-paging = "3.3.4"
 
 #junit
 junit = "4.13.2"
@@ -41,7 +41,7 @@ hilt = "2.52"
 hilt-compiler = "1.2.0"
 
 # retrofit2
-retrofit2 = "2.9.0"
+retrofit2 = "2.11.0"
 
 # okhttp
 okhttp-okHttp = "4.12.0"
