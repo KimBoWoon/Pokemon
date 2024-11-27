@@ -11,9 +11,15 @@ android {
 dependencies {
     arrayOf(
         projects.core.common,
-        libs.coil.compose,
-        libs.coil.okhttp
+        libs.coil,
+        libs.coil.compose
     ).forEach {
         implementation(it)
+    }
+
+    arrayOf(
+        libs.coil.okhttp
+    ).forEach {
+        api(it)
     }
 }

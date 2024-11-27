@@ -1,13 +1,14 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.bowoon.convention.Config
 import com.bowoon.convention.Config.getProp
+import com.bowoon.convention.PokemonBuildType
+import com.bowoon.convention.configureFlavors
 import com.bowoon.convention.configureKotlinAndroid
+import com.bowoon.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -20,10 +21,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
                 apply("org.jetbrains.kotlin.plugin.serialization")
                 apply("org.jetbrains.kotlin.plugin.parcelize")
-//                apply("androidx.navigation.safeargs.kotlin")
-//                apply("com.google.firebase.firebase-perf")
-//                apply("com.google.firebase.crashlytics")
-//                apply("com.google.gms.google-services")
             }
 
             extensions.configure<ApplicationExtension> {
@@ -60,7 +57,14 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 }
 
                 buildTypes {
+                    debug {
+                        applicationIdSuffix = PokemonBuildType.DEBUG.applicationIdSuffix
+                        isMinifyEnabled = false
+                        buildConfigField("Boolean", "IS_DEBUGGING_LOGGING", "true")
+                        signingConfig = signingConfigs.getByName(Config.Application.Pokemon.Sign.Debug.name)
+                    }
                     release {
+                        applicationIdSuffix = PokemonBuildType.RELEASE.applicationIdSuffix
                         isMinifyEnabled = true
                         isShrinkResources = true
                         isDebuggable = false
@@ -71,29 +75,18 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                         buildConfigField("Boolean", "IS_DEBUGGING_LOGGING", "false")
                         signingConfig = signingConfigs.getByName(Config.Application.Pokemon.Sign.Release.name)
                     }
-                    debug {
-                        isMinifyEnabled = false
-//                        applicationIdSuffix = ".dev"
-                        buildConfigField("Boolean", "IS_DEBUGGING_LOGGING", "true")
-                        signingConfig = signingConfigs.getByName(Config.Application.Pokemon.Sign.Debug.name)
-                    }
                 }
 
+                configureFlavors(this)
                 configureKotlinAndroid(this)
             }
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
             dependencies {
-                "implementation"(libs.findLibrary("androidx.core.ktx").get())
-                "implementation"(libs.findLibrary("androidx.appcompat").get())
-//                "implementation"(libs.findLibrary("material").get())
-//                "implementation"(libs.findLibrary("androidx.constraintlayout").get())
-//                "implementation"(libs.findLibrary("firebase.performance").get())
-//                "implementation"(libs.findLibrary("firebase.analytics").get())
-//                "implementation"(libs.findLibrary("firebase.crashlytics").get())
-//                "implementation"(platform(libs.findLibrary("firebase.bom").get()))
-                "testImplementation"(libs.findLibrary("junit").get())
-                "androidTestImplementation"(libs.findLibrary("androidx.junit").get())
-                "androidTestImplementation"(libs.findLibrary("androidx.espresso.core").get())
+                add("implementation", libs.findLibrary("androidx.core.ktx").get())
+                add("implementation", libs.findLibrary("androidx.appcompat").get())
+                add("testImplementation", libs.findLibrary("junit").get())
+                add("androidTestImplementation", libs.findLibrary("androidx.junit").get())
+                add("androidTestImplementation", libs.findLibrary("androidx.espresso.core").get())
             }
         }
     }

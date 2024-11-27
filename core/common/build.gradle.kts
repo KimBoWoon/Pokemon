@@ -1,6 +1,7 @@
 plugins {
     id("bowoon.library")
     id("bowoon.library.compose")
+    id("bowoon.hilt")
 }
 
 android {
@@ -8,4 +9,6 @@ android {
 }
 
 dependencies {
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }

@@ -12,8 +12,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PokemonRoute(val url: String)
 
-fun NavController.navigateToPokemon(topicId: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
-    navigate(route = PokemonRoute(topicId)) {
+fun NavController.navigateToPokemon(url: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
+    navigate(route = PokemonRoute(url)) {
         navOptions()
     }
 }

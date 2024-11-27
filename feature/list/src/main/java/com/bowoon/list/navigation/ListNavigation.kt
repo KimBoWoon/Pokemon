@@ -24,18 +24,18 @@ fun NavGraphBuilder.listSection(
 ) {
     navigation<ListBaseRoute>(startDestination = ListRoute) {
         composable<ListRoute>(
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(500)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(500)
-                )
-            }
+//            enterTransition = {
+//                slideIntoContainer(
+//                    AnimatedContentTransitionScope.SlideDirection.Right,
+//                    animationSpec = tween(500)
+//                )
+//            },
+//            exitTransition = {
+//                slideOutOfContainer(
+//                    AnimatedContentTransitionScope.SlideDirection.Left,
+//                    animationSpec = tween(500)
+//                )
+//            }
         ) {
             ListScreen(onPokemonClick)
         }

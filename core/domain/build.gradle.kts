@@ -13,4 +13,10 @@ dependencies {
     ).forEach {
         api(it)
     }
+
+    arrayOf(
+        projects.core.testing
+    ).forEach {
+        implementation(it)
+    }
 }

@@ -1,17 +1,15 @@
 package com.bowoon.data.repository
 
-import com.bowoon.network.model.PokemonListResponse
-import com.bowoon.network.model.PokemonResponse
-import com.bowoon.network.ApiResponse
+import com.bowoon.model.PokemonAbility
+import com.bowoon.model.PokemonList
 import kotlinx.coroutines.flow.Flow
 
 interface PokemonRepository {
     suspend fun getPokemonList(
-        limit: Int = 20,
-        offset: Int = 0
-    ): ApiResponse<PokemonListResponse>
+        url: String
+    ): PokemonList
 
     fun getPokemonInfo(
-        url: String?
-    ): Flow<PokemonResponse>
+        url: String
+    ): Flow<PokemonAbility>
 }

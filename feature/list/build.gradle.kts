@@ -2,6 +2,7 @@ plugins {
     id("bowoon.library")
     id("bowoon.library.compose")
     id("bowoon.hilt")
+    id("bowoon.android.feature")
 }
 
 android {
@@ -13,12 +14,10 @@ dependencies {
         projects.core.common,
         projects.core.data,
         projects.core.domain,
-        projects.core.imgLoader,
-        libs.compose.navigation,
-        libs.compose.hilt.navigation,
-        libs.compose.paging,
-        libs.kotlin.serialization,
-        libs.coil.compose
+        projects.core.datastore,
+        libs.androidx.navigation.compose,
+        libs.androidx.compose.hilt.navigation,
+        libs.androidx.compose.paging
     ).forEach {
         implementation(it)
     }

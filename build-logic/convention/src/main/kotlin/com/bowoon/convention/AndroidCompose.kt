@@ -6,7 +6,6 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 
@@ -30,7 +29,15 @@ internal fun Project.configureAndroidCompose(
         dependencies {
             val bom = libs.findLibrary("androidx.compose.bom").get()
             add("implementation", platform(bom))
+            add("implementation", libs.findLibrary("androidx.activity.compose").get())
+            add("implementation", libs.findLibrary("androidx.ui").get())
+            add("implementation", libs.findLibrary("androidx.ui.graphics").get())
+            add("implementation", libs.findLibrary("androidx.ui.tooling.preview").get())
+            add("implementation", libs.findLibrary("androidx.compose.material3").get())
+            add("debugImplementation", libs.findLibrary("androidx.ui.tooling").get())
             add("androidTestImplementation", platform(bom))
+            add("androidTestImplementation", libs.findLibrary("androidx.ui.test.junit4").get())
+            add("androidTestImplementation", libs.findLibrary("androidx.ui.test.manifest").get())
         }
     }
 
