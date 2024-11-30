@@ -4,17 +4,17 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.bowoon.common.RestartableStateFlow
 import com.bowoon.common.Result
 import com.bowoon.common.asResult
+import com.bowoon.common.restartableStateIn
 import com.bowoon.data.repository.PokemonRepository
 import com.bowoon.model.PokemonAbility
 import com.bowoon.pokemon.navigation.PokemonRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,8 +27,15 @@ class PokemonVM @Inject constructor(
     }
 
     private val url = savedStateHandle.toRoute<PokemonRoute>().url
-    val pokemonUiState: StateFlow<PokemonUiState> = pokemonUiState(url, repository)
-        .stateIn(
+
+//    val pokemonUiState: StateFlow<PokemonUiState> = pokemonUiState(url, repository)
+//        .stateIn(
+//            scope = viewModelScope,
+//            initialValue = PokemonUiState.Loading,
+//            started = SharingStarted.WhileSubscribed(5000)
+//        )
+    val pokemonUiState: RestartableStateFlow<PokemonUiState> = pokemonUiState(url, repository)
+        .restartableStateIn(
             scope = viewModelScope,
             initialValue = PokemonUiState.Loading,
             started = SharingStarted.WhileSubscribed(5000)

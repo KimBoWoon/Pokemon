@@ -42,7 +42,7 @@ fun RowScope.BottomNavigationBarItem(
         Text(
             modifier = Modifier.padding(vertical = dp5),
             text = label,
-            fontSize = 12.sp,
+            fontSize = sp12,
             overflow = TextOverflow.Ellipsis,
             style = TextStyle(
                 platformStyle = PlatformTextStyle(includeFontPadding = false)
@@ -76,7 +76,7 @@ fun ColumnScope.BottomNavigationRailItem(
         Text(
             modifier = Modifier.padding(vertical = dp5),
             text = label,
-            fontSize = 12.sp,
+            fontSize = sp12,
             overflow = TextOverflow.Ellipsis,
             style = TextStyle(
                 platformStyle = PlatformTextStyle(includeFontPadding = false)

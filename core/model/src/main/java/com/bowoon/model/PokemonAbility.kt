@@ -11,7 +11,7 @@ data class PokemonAbility(
     val id: Int? = null,
     val isDefault: Boolean? = null,
     val locationAreaEncounters: String? = null,
-    val moves: List<MoveInfo>? = null,
+    val moves: List<Move>? = null,
     val name: String? = null,
     val order: Int? = null,
 //    val pastAbilities: List<Any>? = null,

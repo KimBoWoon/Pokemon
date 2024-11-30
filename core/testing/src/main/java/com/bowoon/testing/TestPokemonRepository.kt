@@ -10,7 +10,9 @@ import com.bowoon.network.model.Cries
 import com.bowoon.network.model.Form
 import com.bowoon.network.model.GameIndice
 import com.bowoon.network.model.Item
+import com.bowoon.network.model.Move
 import com.bowoon.network.model.MoveInfo
+import com.bowoon.network.model.MoveLearnMethod
 import com.bowoon.network.model.OfficialArtwork
 import com.bowoon.network.model.Other
 import com.bowoon.network.model.PokemonHeldItem
@@ -23,6 +25,8 @@ import com.bowoon.network.model.StatInfo
 import com.bowoon.network.model.Type
 import com.bowoon.network.model.TypeInfo
 import com.bowoon.network.model.Version
+import com.bowoon.network.model.VersionGroup
+import com.bowoon.network.model.VersionGroupDetail
 import com.bowoon.network.model.asExternalModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
@@ -97,8 +101,26 @@ val pokemonAbility = AbilityResponse(
     isDefault = true,
     locationAreaEncounters = "LocationAreaEncounters",
     moves = listOf(
-        MoveInfo(name = "MoveInfo1", url = "MoveUrl1"),
-        MoveInfo(name = "MoveInfo2", url = "MoveUrl2")
+        Move(
+            MoveInfo(name = "MoveInfo1", url = "MoveUrl1"),
+            listOf(
+                VersionGroupDetail(
+                    levelLearnedAt = 1,
+                    moveLearnMethod = MoveLearnMethod(name = "MoveLearnMethodName1", url = "MoveLearnMethodUrl1"),
+                    versionGroup = VersionGroup(name = "VersionGroupName1", url = "VersionGroupUrl1")
+                )
+            )
+        ),
+        Move(
+            MoveInfo(name = "MoveInfo2", url = "MoveUrl2"),
+            listOf(
+                VersionGroupDetail(
+                    levelLearnedAt = 1,
+                    moveLearnMethod = MoveLearnMethod(name = "MoveLearnMethodName1", url = "MoveLearnMethodUrl1"),
+                    versionGroup = VersionGroup(name = "VersionGroupName1", url = "VersionGroupUrl1")
+                )
+            )
+        )
     ),
     name = "PokemonAbilityName",
     order = 0,

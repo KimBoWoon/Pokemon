@@ -34,95 +34,100 @@ fun MainScreen(
     appState: PokemonAppState,
     snackbarHostState: SnackbarHostState
 ) {
-    val windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo()
-    val layoutType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(windowAdaptiveInfo)
-    val currentDestination = appState.currentDestination
-    val context = LocalContext.current
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        bottomBar = {
-            when (layoutType) {
-                NavigationSuiteType.NavigationBar -> {
-                    NavigationBar(
-                        modifier = Modifier.fillMaxWidth().height(dp50),
-                        containerColor = PokemonNavigationDefaults.navigationContainerColor(),
-                        contentColor = PokemonNavigationDefaults.navigationContentColor()
-                    ) {
-                        appState.topLevelDestinations.forEach { destination ->
-                            val selected = currentDestination.isRouteInHierarchy(destination.baseRoute)
-                            BottomNavigationBarItem(
-                                selected = selected,
-                                label = context.getString(destination.titleTextId),
-                                selectedIcon = destination.selectedIcon,
-                                unSelectedIcon = destination.unselectedIcon,
-                                onClick = { appState.navigateToTopLevelDestination(destination) }
-                            )
-                        }
-                    }
-                }
-                NavigationSuiteType.NavigationRail -> {
-                    NavigationRail(
-                        modifier = Modifier.width(dp50).fillMaxHeight(),
-                        containerColor = PokemonNavigationDefaults.navigationContainerColor(),
-                        contentColor = PokemonNavigationDefaults.navigationContentColor()
-                    ) {
-                        appState.topLevelDestinations.forEach { destination ->
-                            val selected = currentDestination.isRouteInHierarchy(destination.baseRoute)
-                            BottomNavigationRailItem(
-                                selected = selected,
-                                label = context.getString(destination.titleTextId),
-                                selectedIcon = destination.selectedIcon,
-                                unSelectedIcon = destination.unselectedIcon,
-                                onClick = { appState.navigateToTopLevelDestination(destination) }
-                            )
-                        }
-                    }
-                }
-                NavigationSuiteType.NavigationDrawer -> {
-                    NavigationRail(
-                        modifier = Modifier.width(dp50).fillMaxHeight(),
-                        containerColor = PokemonNavigationDefaults.navigationContainerColor(),
-                        contentColor = PokemonNavigationDefaults.navigationContentColor()
-                    ) {
-                        appState.topLevelDestinations.forEach { destination ->
-                            val selected = currentDestination.isRouteInHierarchy(destination.baseRoute)
-                            BottomNavigationRailItem(
-                                selected = selected,
-                                label = context.getString(destination.titleTextId),
-                                selectedIcon = destination.selectedIcon,
-                                unSelectedIcon = destination.unselectedIcon,
-                                onClick = { appState.navigateToTopLevelDestination(destination) }
-                            )
-                        }
-                    }
-                }
-                else -> {
-                    NavigationBar(
-                        modifier = Modifier.fillMaxWidth().height(dp50),
-                        containerColor = PokemonNavigationDefaults.navigationContainerColor(),
-                        contentColor = PokemonNavigationDefaults.navigationContentColor()
-                    ) {
-                        appState.topLevelDestinations.forEach { destination ->
-                            val selected = currentDestination.isRouteInHierarchy(destination.baseRoute)
-                            BottomNavigationBarItem(
-                                selected = selected,
-                                label = context.getString(destination.titleTextId),
-                                selectedIcon = destination.selectedIcon,
-                                unSelectedIcon = destination.unselectedIcon,
-                                onClick = { appState.navigateToTopLevelDestination(destination) }
-                            )
-                        }
-                    }
-                }
-            }
-        }
+        bottomBar = { Navigation(appState = appState) }
     ) { innerPadding ->
         PokemonNavHost(
             modifier = Modifier.padding(innerPadding),
             appState = appState
         )
+    }
+}
+
+@Composable
+fun Navigation(
+    appState: PokemonAppState
+) {
+    val windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo()
+    val layoutType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(windowAdaptiveInfo)
+    val context = LocalContext.current
+    val currentDestination = appState.currentDestination
+
+    when (layoutType) {
+        NavigationSuiteType.NavigationBar -> {
+            NavigationBar(
+                modifier = Modifier.fillMaxWidth().height(dp50),
+                containerColor = PokemonNavigationDefaults.navigationContainerColor(),
+                contentColor = PokemonNavigationDefaults.navigationContentColor()
+            ) {
+                appState.topLevelDestinations.forEach { destination ->
+                    val selected = currentDestination.isRouteInHierarchy(destination.baseRoute)
+                    BottomNavigationBarItem(
+                        selected = selected,
+                        label = context.getString(destination.titleTextId),
+                        selectedIcon = destination.selectedIcon,
+                        unSelectedIcon = destination.unselectedIcon,
+                        onClick = { appState.navigateToTopLevelDestination(destination) }
+                    )
+                }
+            }
+        }
+        NavigationSuiteType.NavigationRail -> {
+            NavigationRail(
+                modifier = Modifier.width(dp50).fillMaxHeight(),
+                containerColor = PokemonNavigationDefaults.navigationContainerColor(),
+                contentColor = PokemonNavigationDefaults.navigationContentColor()
+            ) {
+                appState.topLevelDestinations.forEach { destination ->
+                    val selected = currentDestination.isRouteInHierarchy(destination.baseRoute)
+                    BottomNavigationRailItem(
+                        selected = selected,
+                        label = context.getString(destination.titleTextId),
+                        selectedIcon = destination.selectedIcon,
+                        unSelectedIcon = destination.unselectedIcon,
+                        onClick = { appState.navigateToTopLevelDestination(destination) }
+                    )
+                }
+            }
+        }
+        NavigationSuiteType.NavigationDrawer -> {
+            NavigationRail(
+                modifier = Modifier.width(dp50).fillMaxHeight(),
+                containerColor = PokemonNavigationDefaults.navigationContainerColor(),
+                contentColor = PokemonNavigationDefaults.navigationContentColor()
+            ) {
+                appState.topLevelDestinations.forEach { destination ->
+                    val selected = currentDestination.isRouteInHierarchy(destination.baseRoute)
+                    BottomNavigationRailItem(
+                        selected = selected,
+                        label = context.getString(destination.titleTextId),
+                        selectedIcon = destination.selectedIcon,
+                        unSelectedIcon = destination.unselectedIcon,
+                        onClick = { appState.navigateToTopLevelDestination(destination) }
+                    )
+                }
+            }
+        }
+        else -> {
+            NavigationBar(
+                modifier = Modifier.fillMaxWidth().height(dp50),
+                containerColor = PokemonNavigationDefaults.navigationContainerColor(),
+                contentColor = PokemonNavigationDefaults.navigationContentColor()
+            ) {
+                appState.topLevelDestinations.forEach { destination ->
+                    val selected = currentDestination.isRouteInHierarchy(destination.baseRoute)
+                    BottomNavigationBarItem(
+                        selected = selected,
+                        label = context.getString(destination.titleTextId),
+                        selectedIcon = destination.selectedIcon,
+                        unSelectedIcon = destination.unselectedIcon,
+                        onClick = { appState.navigateToTopLevelDestination(destination) }
+                    )
+                }
+            }
+        }
     }
 }
 

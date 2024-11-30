@@ -19,7 +19,7 @@ fun TitleView(
     ) {
         Text(
             text = title,
-            fontSize = 16.sp,
+            fontSize = sp16,
             fontWeight = FontWeight.Bold
         )
     }

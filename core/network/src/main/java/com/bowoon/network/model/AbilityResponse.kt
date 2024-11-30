@@ -8,7 +8,130 @@ fun AbilityResponse.asExternalModel(): com.bowoon.model.PokemonAbility =
         name = name,
         abilities = abilities?.asExternalModel(),
         id = id,
-        stats = stats?.asExternalModel()
+        stats = stats?.asExternalModel(),
+        heldItems = heldItems?.asExternalModel(),
+        height = height,
+        gameIndices = gameIndices?.asExternalModel(),
+        forms = forms?.asExternalModel(),
+        cries = cries?.asExternalModel(),
+        baseExperience = baseExperience,
+        isDefault = isDefault,
+        locationAreaEncounters = locationAreaEncounters,
+        moves = moves?.asExternalModel(),
+        order = order,
+        species = species?.asExternalModel(),
+        sprites = sprites?.asExternalModel(),
+        types = types?.asExternalModel(),
+        weight = weight
+    )
+
+@JvmName("TypeExternalModel")
+fun List<Type>.asExternalModel(): List<com.bowoon.model.Type> =
+    map {
+        com.bowoon.model.Type(
+            slot = it.slot,
+            type = it.type?.asExternalModel()
+        )
+    }
+
+fun TypeInfo.asExternalModel(): com.bowoon.model.TypeInfo =
+    com.bowoon.model.TypeInfo(
+        name = name,
+        url = url
+    )
+
+fun Species.asExternalModel(): com.bowoon.model.Species =
+    com.bowoon.model.Species(
+        name = name,
+        url = url
+    )
+
+fun Sprites.asExternalModel(): com.bowoon.model.Sprites =
+    com.bowoon.model.Sprites(
+        backDefault = backDefault,
+        backFemale = backFemale,
+        backShiny = backShiny,
+        backShinyFemale = backShinyFemale,
+        frontDefault = frontDefault,
+        frontFemale = frontFemale,
+        frontShiny = frontShiny,
+        frontShinyFemale = frontShinyFemale,
+        other = other?.asExternalModel()
+    )
+
+fun Other.asExternalModel(): com.bowoon.model.Other =
+    com.bowoon.model.Other(
+        dreamWorld = dreamWorld?.asExternalModel(),
+        home = home?.asExternalModel(),
+        officialArtwork = officialArtwork?.asExternalModel(),
+        showdown = showdown?.asExternalModel()
+    )
+
+fun OfficialArtwork.asExternalModel(): com.bowoon.model.OfficialArtwork =
+    com.bowoon.model.OfficialArtwork(
+        frontDefault = frontDefault,
+        frontShiny = frontShiny
+    )
+
+@JvmName("MoveInfoExternalModel")
+fun List<MoveInfo>.asExternalModel(): List<com.bowoon.model.MoveInfo> =
+    map {
+        com.bowoon.model.MoveInfo(
+            name = it.name,
+            url = it.url
+        )
+    }
+
+@JvmName("FormExternalModel")
+fun List<Form>.asExternalModel(): List<com.bowoon.model.Form> =
+    map {
+        com.bowoon.model.Form(
+            name = it.name,
+            url = it.url
+        )
+    }
+
+fun Cries.asExternalModel(): com.bowoon.model.Cries =
+    com.bowoon.model.Cries(
+        latest = latest,
+        legacy = legacy
+    )
+
+@JvmName("MoveExternalModel")
+fun List<Move>.asExternalModel(): List<com.bowoon.model.Move> =
+    map {
+        com.bowoon.model.Move(
+            move = it.move?.asExternalModel(),
+            versionGroupDetails = it.versionGroupDetails?.asExternalModel()
+        )
+    }
+
+fun MoveInfo.asExternalModel(): com.bowoon.model.MoveInfo =
+    com.bowoon.model.MoveInfo(
+        name = name,
+        url = url
+    )
+
+@JvmName("VersionGroupDetailExternalModel")
+fun List<VersionGroupDetail>.asExternalModel(): List<com.bowoon.model.VersionGroupDetail> =
+    map {
+        com.bowoon.model.VersionGroupDetail(
+            levelLearnedAt = it.levelLearnedAt,
+            moveLearnMethod = it.moveLearnMethod?.asExternalModel(),
+            versionGroup = it.versionGroup?.asExternalModel()
+        )
+    }
+
+fun MoveLearnMethod.asExternalModel(): com.bowoon.model.MoveLearnMethod =
+    com.bowoon.model.MoveLearnMethod(
+        name = name,
+        url = url
+    )
+
+fun VersionGroup.asExternalModel(): com.bowoon.model.VersionGroup =
+    com.bowoon.model.VersionGroup(
+        name = name,
+        url = url
     )
 
 @JvmName("AbilitiesExternalModel")
@@ -26,6 +149,44 @@ fun AbilityInfo.asExternalModel(): com.bowoon.model.AbilityInfo =
         name = name,
         url = url
     )
+
+fun List<PokemonHeldItem>.asExternalModel(): List<com.bowoon.model.PokemonHeldItem> =
+    map {
+        com.bowoon.model.PokemonHeldItem(
+            item = it.item?.asExternalModel(),
+            versionDetails = it.versionDetails?.asExternalModel()
+        )
+    }
+
+fun Item.asExternalModel(): com.bowoon.model.Item =
+    com.bowoon.model.Item(
+        name = name,
+        url = url
+    )
+
+@JvmName("PokemonHeldItemVersionExternalModel")
+fun List<PokemonHeldItemVersion>.asExternalModel(): List<com.bowoon.model.PokemonHeldItemVersion> =
+    map {
+        com.bowoon.model.PokemonHeldItemVersion(
+            version = it.version?.asExternalModel(),
+            rarity = it.rarity
+        )
+    }
+
+fun Version.asExternalModel(): com.bowoon.model.Version =
+    com.bowoon.model.Version(
+        name = name,
+        url = url
+    )
+
+@JvmName("GameIndiceExternalModel")
+fun List<GameIndice>.asExternalModel(): List<com.bowoon.model.GameIndice> =
+    map {
+        com.bowoon.model.GameIndice(
+            gameIndex = it.gameIndex,
+            version = it.version?.asExternalModel()
+        )
+    }
 
 @JvmName("StatsExternalModel")
 fun List<Stat>.asExternalModel(): List<com.bowoon.model.Stat> =
@@ -66,7 +227,7 @@ data class AbilityResponse(
     @SerialName("location_area_encounters")
     val locationAreaEncounters: String? = null,
     @SerialName("moves")
-    val moves: List<MoveInfo>? = null,
+    val moves: List<Move>? = null,
     @SerialName("name")
     val name: String? = null,
     @SerialName("order")
