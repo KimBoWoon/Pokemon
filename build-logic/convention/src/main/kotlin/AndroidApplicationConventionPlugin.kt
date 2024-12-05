@@ -35,20 +35,20 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                         versionCode = Config.Application.Pokemon.versionCode
                         testInstrumentationRunner = Config.ApplicationSetting.testInstrumentationRunner
 
-                        signingConfigs {
-                            register(Config.Application.Pokemon.Sign.Release.name) {
-                                storeFile = file(getProp(Config.Application.Pokemon.Sign.Release.storeFile))
-                                storePassword = getProp(Config.Application.Pokemon.Sign.Release.storePassword)
-                                keyAlias = getProp(Config.Application.Pokemon.Sign.Release.keyAlias)
-                                keyPassword = getProp(Config.Application.Pokemon.Sign.Release.keyPassword)
-                            }
-                            register(Config.Application.Pokemon.Sign.Debug.name) {
-                                storeFile = file(getProp(Config.Application.Pokemon.Sign.Debug.storeFile))
-                                storePassword = getProp(Config.Application.Pokemon.Sign.Debug.storePassword)
-                                keyAlias = getProp(Config.Application.Pokemon.Sign.Debug.keyAlias)
-                                keyPassword = getProp(Config.Application.Pokemon.Sign.Debug.keyPassword)
-                            }
-                        }
+//                        signingConfigs {
+//                            register(Config.Application.Pokemon.Sign.Release.name) {
+//                                storeFile = file(getProp(Config.Application.Pokemon.Sign.Release.storeFile))
+//                                storePassword = getProp(Config.Application.Pokemon.Sign.Release.storePassword)
+//                                keyAlias = getProp(Config.Application.Pokemon.Sign.Release.keyAlias)
+//                                keyPassword = getProp(Config.Application.Pokemon.Sign.Release.keyPassword)
+//                            }
+//                            register(Config.Application.Pokemon.Sign.Debug.name) {
+//                                storeFile = file(getProp(Config.Application.Pokemon.Sign.Debug.storeFile))
+//                                storePassword = getProp(Config.Application.Pokemon.Sign.Debug.storePassword)
+//                                keyAlias = getProp(Config.Application.Pokemon.Sign.Debug.keyAlias)
+//                                keyPassword = getProp(Config.Application.Pokemon.Sign.Debug.keyPassword)
+//                            }
+//                        }
                     }
 
                     SimpleDateFormat(Config.ApplicationSetting.dateFormat, Locale.getDefault()).run {
@@ -61,7 +61,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                         applicationIdSuffix = PokemonBuildType.DEBUG.applicationIdSuffix
                         isMinifyEnabled = false
                         buildConfigField("Boolean", "IS_DEBUGGING_LOGGING", "true")
-                        signingConfig = signingConfigs.getByName(Config.Application.Pokemon.Sign.Debug.name)
+//                        signingConfig = signingConfigs.getByName(Config.Application.Pokemon.Sign.Debug.name)
                     }
                     release {
                         applicationIdSuffix = PokemonBuildType.RELEASE.applicationIdSuffix
@@ -73,7 +73,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                             Config.ApplicationSetting.proguardFile
                         )
                         buildConfigField("Boolean", "IS_DEBUGGING_LOGGING", "false")
-                        signingConfig = signingConfigs.getByName(Config.Application.Pokemon.Sign.Release.name)
+//                        signingConfig = signingConfigs.getByName(Config.Application.Pokemon.Sign.Release.name)
                     }
                 }
 
