@@ -1,7 +1,7 @@
 package com.bowoon.data.repository
 
-import com.bowoon.model.PokemonAbility
-import com.bowoon.model.PokemonList
+import com.bowoon.model.Evolution
+import com.bowoon.model.PokemonStatus
 import com.bowoon.network.ApiResponse
 import com.bowoon.network.model.asExternalModel
 import com.bowoon.network.retrofit.Apis
@@ -14,14 +14,15 @@ import javax.inject.Inject
 class PokemonRepositoryImpl @Inject constructor(
     private val apis: Apis
 ) : PokemonRepository {
-    override suspend fun getPokemonList(url: String): PokemonList =
-        when (val response = apis.pokemonApis.getPokemonList(url)) {
-            is ApiResponse.Failure -> throw response.throwable
-            is ApiResponse.Success -> response.data.asExternalModel()
-        }
-
-    override fun getPokemonInfo(url: String): Flow<PokemonAbility> = flow {
+    override fun getPokemonInfo(url: String): Flow<PokemonStatus> = flow {
         when (val response = apis.pokemonApis.getPokemonInfo(url)) {
+            is ApiResponse.Failure -> throw response.throwable
+            is ApiResponse.Success -> emit(response.data.asExternalModel())
+        }
+    }
+
+    override fun getPokemonEvolution(url: String): Flow<Evolution> = flow {
+        when (val response = apis.pokemonApis.getPokemonEvolution(url)) {
             is ApiResponse.Failure -> throw response.throwable
             is ApiResponse.Success -> emit(response.data.asExternalModel())
         }

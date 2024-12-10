@@ -2,7 +2,7 @@ package com.bowoon.pokemon
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.testing.invoke
-import com.bowoon.model.PokemonAbility
+import com.bowoon.model.PokemonStatus
 import com.bowoon.network.PokemonApis
 import com.bowoon.pokemon.navigation.PokemonRoute
 import com.bowoon.testing.MainDispatcherRule
@@ -83,7 +83,7 @@ class PokemonVMTest {
         val item = viewModel.pokemonUiState.value
         assertIs<PokemonUiState.Success>(item)
 
-        val response = PokemonAbility().toString()
+        val response = PokemonStatus().toString()
         server.enqueue(MockResponse().setBody(response))
         val result = pokemonRepository.getPokemonInfo(BASE_URL).first()
 

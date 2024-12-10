@@ -19,4 +19,6 @@ dependencies {
     ).forEach {
         implementation(it)
     }
+
+    implementation("androidx.paging:paging-common:3.3.4")
 }

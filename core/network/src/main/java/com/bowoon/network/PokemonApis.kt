@@ -1,6 +1,7 @@
 package com.bowoon.network
 
-import com.bowoon.network.model.AbilityResponse
+import com.bowoon.network.model.PokemonStatusResponse
+import com.bowoon.network.model.EvolutionResponse
 import com.bowoon.network.model.PokemonListResponse
 import retrofit2.http.GET
 import retrofit2.http.Url
@@ -17,5 +18,10 @@ interface PokemonApis {
     @GET
     suspend fun getPokemonInfo(
         @Url url: String
-    ): ApiResponse<AbilityResponse>
+    ): ApiResponse<PokemonStatusResponse>
+
+    @GET
+    suspend fun getPokemonEvolution(
+        @Url url: String
+    ): ApiResponse<EvolutionResponse>
 }

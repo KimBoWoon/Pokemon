@@ -1,10 +1,10 @@
 package com.bowoon.model
 
-data class PokemonAbility(
+data class PokemonStatus(
     val abilities: List<Ability>? = null,
     val baseExperience: Int? = null,
     val cries: Cries? = null,
-    val forms: List<Form>? = null,
+    val forms: List<NamedAPIResource>? = null,
     val gameIndices: List<GameIndice>? = null,
     val height: Int? = null,
     val heldItems: List<PokemonHeldItem>? = null,
@@ -15,8 +15,8 @@ data class PokemonAbility(
     val name: String? = null,
     val order: Int? = null,
 //    val pastAbilities: List<Any>? = null,
-//    val pastTypes: List<Any>? = null,
-    val species: Species? = null,
+    val pastTypes: List<PokemonTypePast>? = null,
+    val species: NamedAPIResource? = null,
     val sprites: Sprites? = null,
     val stats: List<Stat>? = null,
     val types: List<Type>? = null,
@@ -27,14 +27,9 @@ data class PokemonAbility(
 }
 
 data class Ability(
-    val ability: AbilityInfo? = null,
+    val ability: NamedAPIResource? = null,
     val isHidden: Boolean? = null,
     val slot: Int? = null
-)
-
-data class AbilityInfo(
-    val name: String? = null,
-    val url: String? = null
 )
 
 data class Cries(
@@ -42,66 +37,30 @@ data class Cries(
     val legacy: String? = null
 )
 
-data class Form(
-    val name: String? = null,
-    val url: String? = null
-)
-
 data class GameIndice(
     val gameIndex: Int? = null,
-    val version: Version? = null
+    val version: NamedAPIResource? = null
 )
 
 data class PokemonHeldItem(
-    val item: Item? = null,
+    val item: NamedAPIResource? = null,
     val versionDetails: List<PokemonHeldItemVersion>? = null
 )
 
 data class PokemonHeldItemVersion(
-    val version: Version? = null,
+    val version: NamedAPIResource? = null,
     val rarity: Int? = null
 )
 
-data class Item(
-    val name: String? = null,
-    val url: String? = null
-)
-
-data class Version(
-    val name: String? = null,
-    val url: String? = null
-)
-
 data class Move(
-    val move: MoveInfo? = null,
+    val move: NamedAPIResource? = null,
     val versionGroupDetails: List<VersionGroupDetail>? = null
-)
-
-
-data class MoveInfo(
-    val name: String? = null,
-    val url: String? = null
 )
 
 data class VersionGroupDetail(
     val levelLearnedAt: Int? = null,
-    val moveLearnMethod: MoveLearnMethod? = null,
-    val versionGroup: VersionGroup? = null
-)
-
-data class MoveLearnMethod(
-    val name: String? = null,
-    val url: String? = null
-)
-
-data class VersionGroup(
-    val name: String? = null,
-    val url: String? = null
-)
-
-data class Species(
-    val name: String? = null,
-    val url: String? = null
+    val moveLearnMethod: NamedAPIResource? = null,
+    val versionGroup: NamedAPIResource? = null
 )
 
 data class Sprites(
@@ -132,20 +91,20 @@ data class OfficialArtwork(
 data class Stat(
     val baseStat: Int? = null,
     val effort: Int? = null,
-    val stat: StatInfo? = null
-)
-
-data class StatInfo(
-    val name: String? = null,
-    val url: String? = null
+    val stat: NamedAPIResource? = null
 )
 
 data class Type(
     val slot: Int? = null,
-    val type: TypeInfo? = null
+    val type: NamedAPIResource? = null
 )
 
-data class TypeInfo(
-    val name: String? = null,
-    val url: String? = null
+data class PokemonTypePast(
+    val generation: NamedAPIResource? = null,
+    val types: PokemonType? = null
+)
+
+data class PokemonType(
+    val slot: Int? = null,
+    val type: NamedAPIResource? = null
 )

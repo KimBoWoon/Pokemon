@@ -29,4 +29,6 @@ dependencies {
     testImplementation(libs.kotlinx.serialization.converter)
     testImplementation(libs.mockwebserver)
     androidTestImplementation(libs.mockwebserver)
+
+    implementation("androidx.paging:paging-common:3.3.4")
 }

@@ -9,7 +9,8 @@ import com.bowoon.common.Result
 import com.bowoon.common.asResult
 import com.bowoon.common.restartableStateIn
 import com.bowoon.data.repository.PokemonRepository
-import com.bowoon.model.PokemonAbility
+import com.bowoon.model.Evolution
+import com.bowoon.model.PokemonStatus
 import com.bowoon.pokemon.navigation.PokemonRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -44,8 +45,14 @@ class PokemonVM @Inject constructor(
 
 sealed interface PokemonUiState {
     data object Loading : PokemonUiState
-    data class Success(val data: PokemonAbility) : PokemonUiState
+    data class Success(val data: PokemonStatus) : PokemonUiState
     data class Error(val throwable: Throwable) : PokemonUiState
+}
+
+sealed interface PokemonEvolutionUiState {
+    data object Loading : PokemonEvolutionUiState
+    data class Success(val data: Evolution) : PokemonEvolutionUiState
+    data class Error(val throwable: Throwable) : PokemonEvolutionUiState
 }
 
 private fun pokemonUiState(

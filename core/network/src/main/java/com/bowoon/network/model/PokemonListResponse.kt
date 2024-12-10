@@ -23,3 +23,6 @@ fun PokemonListResponse.asExternalModel(): PokemonList =
         previous = previous,
         results = results?.map { it.asExternalModel() }
     )
+
+fun List<PokemonResponse>.asExternalModel(): List<com.bowoon.model.Pokemon> =
+    map { it.asExternalModel() }

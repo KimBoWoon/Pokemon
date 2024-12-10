@@ -3,8 +3,8 @@ package com.bowoon.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-fun AbilityResponse.asExternalModel(): com.bowoon.model.PokemonAbility =
-    com.bowoon.model.PokemonAbility(
+fun PokemonStatusResponse.asExternalModel(): com.bowoon.model.PokemonStatus =
+    com.bowoon.model.PokemonStatus(
         name = name,
         abilities = abilities?.asExternalModel(),
         id = id,
@@ -26,7 +26,7 @@ fun AbilityResponse.asExternalModel(): com.bowoon.model.PokemonAbility =
     )
 
 @JvmName("TypeExternalModel")
-fun List<Type>.asExternalModel(): List<com.bowoon.model.Type> =
+fun List<PokemonType>.asExternalModel(): List<com.bowoon.model.Type> =
     map {
         com.bowoon.model.Type(
             slot = it.slot,
@@ -34,19 +34,7 @@ fun List<Type>.asExternalModel(): List<com.bowoon.model.Type> =
         )
     }
 
-fun TypeInfo.asExternalModel(): com.bowoon.model.TypeInfo =
-    com.bowoon.model.TypeInfo(
-        name = name,
-        url = url
-    )
-
-fun Species.asExternalModel(): com.bowoon.model.Species =
-    com.bowoon.model.Species(
-        name = name,
-        url = url
-    )
-
-fun Sprites.asExternalModel(): com.bowoon.model.Sprites =
+fun PokemonSprites.asExternalModel(): com.bowoon.model.Sprites =
     com.bowoon.model.Sprites(
         backDefault = backDefault,
         backFemale = backFemale,
@@ -73,32 +61,14 @@ fun OfficialArtwork.asExternalModel(): com.bowoon.model.OfficialArtwork =
         frontShiny = frontShiny
     )
 
-@JvmName("MoveInfoExternalModel")
-fun List<MoveInfo>.asExternalModel(): List<com.bowoon.model.MoveInfo> =
-    map {
-        com.bowoon.model.MoveInfo(
-            name = it.name,
-            url = it.url
-        )
-    }
-
-@JvmName("FormExternalModel")
-fun List<Form>.asExternalModel(): List<com.bowoon.model.Form> =
-    map {
-        com.bowoon.model.Form(
-            name = it.name,
-            url = it.url
-        )
-    }
-
-fun Cries.asExternalModel(): com.bowoon.model.Cries =
+fun PokemonCries.asExternalModel(): com.bowoon.model.Cries =
     com.bowoon.model.Cries(
         latest = latest,
         legacy = legacy
     )
 
 @JvmName("MoveExternalModel")
-fun List<Move>.asExternalModel(): List<com.bowoon.model.Move> =
+fun List<PokemonMove>.asExternalModel(): List<com.bowoon.model.Move> =
     map {
         com.bowoon.model.Move(
             move = it.move?.asExternalModel(),
@@ -106,14 +76,8 @@ fun List<Move>.asExternalModel(): List<com.bowoon.model.Move> =
         )
     }
 
-fun MoveInfo.asExternalModel(): com.bowoon.model.MoveInfo =
-    com.bowoon.model.MoveInfo(
-        name = name,
-        url = url
-    )
-
 @JvmName("VersionGroupDetailExternalModel")
-fun List<VersionGroupDetail>.asExternalModel(): List<com.bowoon.model.VersionGroupDetail> =
+fun List<PokemonMoveVersion>.asExternalModel(): List<com.bowoon.model.VersionGroupDetail> =
     map {
         com.bowoon.model.VersionGroupDetail(
             levelLearnedAt = it.levelLearnedAt,
@@ -122,20 +86,8 @@ fun List<VersionGroupDetail>.asExternalModel(): List<com.bowoon.model.VersionGro
         )
     }
 
-fun MoveLearnMethod.asExternalModel(): com.bowoon.model.MoveLearnMethod =
-    com.bowoon.model.MoveLearnMethod(
-        name = name,
-        url = url
-    )
-
-fun VersionGroup.asExternalModel(): com.bowoon.model.VersionGroup =
-    com.bowoon.model.VersionGroup(
-        name = name,
-        url = url
-    )
-
 @JvmName("AbilitiesExternalModel")
-fun List<Ability>.asExternalModel(): List<com.bowoon.model.Ability> =
+fun List<PokemonAbility>.asExternalModel(): List<com.bowoon.model.Ability> =
     map { abilities ->
         com.bowoon.model.Ability(
             ability = abilities.ability?.asExternalModel(),
@@ -144,12 +96,6 @@ fun List<Ability>.asExternalModel(): List<com.bowoon.model.Ability> =
         )
     }
 
-fun AbilityInfo.asExternalModel(): com.bowoon.model.AbilityInfo =
-    com.bowoon.model.AbilityInfo(
-        name = name,
-        url = url
-    )
-
 fun List<PokemonHeldItem>.asExternalModel(): List<com.bowoon.model.PokemonHeldItem> =
     map {
         com.bowoon.model.PokemonHeldItem(
@@ -157,12 +103,6 @@ fun List<PokemonHeldItem>.asExternalModel(): List<com.bowoon.model.PokemonHeldIt
             versionDetails = it.versionDetails?.asExternalModel()
         )
     }
-
-fun Item.asExternalModel(): com.bowoon.model.Item =
-    com.bowoon.model.Item(
-        name = name,
-        url = url
-    )
 
 @JvmName("PokemonHeldItemVersionExternalModel")
 fun List<PokemonHeldItemVersion>.asExternalModel(): List<com.bowoon.model.PokemonHeldItemVersion> =
@@ -173,14 +113,8 @@ fun List<PokemonHeldItemVersion>.asExternalModel(): List<com.bowoon.model.Pokemo
         )
     }
 
-fun Version.asExternalModel(): com.bowoon.model.Version =
-    com.bowoon.model.Version(
-        name = name,
-        url = url
-    )
-
 @JvmName("GameIndiceExternalModel")
-fun List<GameIndice>.asExternalModel(): List<com.bowoon.model.GameIndice> =
+fun List<VersionGameIndex>.asExternalModel(): List<com.bowoon.model.GameIndice> =
     map {
         com.bowoon.model.GameIndice(
             gameIndex = it.gameIndex,
@@ -189,7 +123,7 @@ fun List<GameIndice>.asExternalModel(): List<com.bowoon.model.GameIndice> =
     }
 
 @JvmName("StatsExternalModel")
-fun List<Stat>.asExternalModel(): List<com.bowoon.model.Stat> =
+fun List<PokemonStat>.asExternalModel(): List<com.bowoon.model.Stat> =
     map { stats ->
         com.bowoon.model.Stat(
             baseStat = stats.baseStat,
@@ -198,24 +132,18 @@ fun List<Stat>.asExternalModel(): List<com.bowoon.model.Stat> =
         )
     }
 
-fun StatInfo.asExternalModel(): com.bowoon.model.StatInfo =
-    com.bowoon.model.StatInfo(
-        name = name,
-        url = url
-    )
-
 @Serializable
-data class AbilityResponse(
+data class PokemonStatusResponse(
     @SerialName("abilities")
-    val abilities: List<Ability>? = null,
+    val abilities: List<PokemonAbility>? = null,
     @SerialName("base_experience")
     val baseExperience: Int? = null,
     @SerialName("cries")
-    val cries: Cries? = null,
+    val cries: PokemonCries? = null,
     @SerialName("forms")
-    val forms: List<Form>? = null,
+    val forms: List<NamedAPIResource>? = null,
     @SerialName("game_indices")
-    val gameIndices: List<GameIndice>? = null,
+    val gameIndices: List<VersionGameIndex>? = null,
     @SerialName("height")
     val height: Int? = null,
     @SerialName("held_items")
@@ -227,31 +155,31 @@ data class AbilityResponse(
     @SerialName("location_area_encounters")
     val locationAreaEncounters: String? = null,
     @SerialName("moves")
-    val moves: List<Move>? = null,
+    val moves: List<PokemonMove>? = null,
     @SerialName("name")
     val name: String? = null,
     @SerialName("order")
     val order: Int? = null,
 //    @SerialName("past_abilities")
 //    val pastAbilities: List<Any>? = null,
-//    @SerialName("past_types")
-//    val pastTypes: List<Any>? = null,
+    @SerialName("past_types")
+    val pastTypes: List<PokemonTypePast>? = null,
     @SerialName("species")
-    val species: Species? = null,
+    val species: NamedAPIResource? = null,
     @SerialName("sprites")
-    val sprites: Sprites? = null,
+    val sprites: PokemonSprites? = null,
     @SerialName("stats")
-    val stats: List<Stat>? = null,
+    val stats: List<PokemonStat>? = null,
     @SerialName("types")
-    val types: List<Type>? = null,
+    val types: List<PokemonType>? = null,
     @SerialName("weight")
     val weight: Int? = null
 )
 
 @Serializable
-data class Ability(
+data class PokemonAbility(
     @SerialName("ability")
-    val ability: AbilityInfo? = null,
+    val ability: NamedAPIResource? = null,
     @SerialName("is_hidden")
     val isHidden: Boolean? = null,
     @SerialName("slot")
@@ -259,15 +187,7 @@ data class Ability(
 )
 
 @Serializable
-data class AbilityInfo(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class Cries(
+data class PokemonCries(
     @SerialName("latest")
     val latest: String? = null,
     @SerialName("legacy")
@@ -275,25 +195,17 @@ data class Cries(
 )
 
 @Serializable
-data class Form(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class GameIndice(
+data class VersionGameIndex(
     @SerialName("game_index")
     val gameIndex: Int? = null,
     @SerialName("version")
-    val version: Version? = null
+    val version: NamedAPIResource? = null
 )
 
 @Serializable
 data class PokemonHeldItem(
     @SerialName("item")
-    val item: Item? = null,
+    val item: NamedAPIResource? = null,
     @SerialName("version_details")
     val versionDetails: List<PokemonHeldItemVersion>? = null
 )
@@ -301,79 +213,31 @@ data class PokemonHeldItem(
 @Serializable
 data class PokemonHeldItemVersion(
     @SerialName("version")
-    val version: Version? = null,
+    val version: NamedAPIResource? = null,
     @SerialName("rarity")
     val rarity: Int? = null
 )
 
 @Serializable
-data class Item(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class Version(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class Move(
+data class PokemonMove(
     @SerialName("move")
-    val move: MoveInfo? = null,
+    val move: NamedAPIResource? = null,
     @SerialName("version_group_details")
-    val versionGroupDetails: List<VersionGroupDetail>? = null
+    val versionGroupDetails: List<PokemonMoveVersion>? = null
 )
 
 @Serializable
-data class MoveInfo(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class VersionGroupDetail(
+data class PokemonMoveVersion(
     @SerialName("level_learned_at")
     val levelLearnedAt: Int? = null,
     @SerialName("move_learn_method")
-    val moveLearnMethod: MoveLearnMethod? = null,
+    val moveLearnMethod: NamedAPIResource? = null,
     @SerialName("version_group")
-    val versionGroup: VersionGroup? = null
+    val versionGroup: NamedAPIResource? = null
 )
 
 @Serializable
-data class MoveLearnMethod(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class VersionGroup(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class Species(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class Sprites(
+data class PokemonSprites(
     @SerialName("back_default")
     val backDefault: String? = null,
     @SerialName("back_female")
@@ -399,13 +263,13 @@ data class Sprites(
 @Serializable
 data class Other(
     @SerialName("dream_world")
-    val dreamWorld: Sprites? = null,
+    val dreamWorld: PokemonSprites? = null,
     @SerialName("home")
-    val home: Sprites? = null,
+    val home: PokemonSprites? = null,
     @SerialName("official-artwork")
     val officialArtwork: OfficialArtwork? = null,
     @SerialName("showdown")
-    val showdown: Sprites? = null
+    val showdown: PokemonSprites? = null
 )
 
 @Serializable
@@ -417,35 +281,27 @@ data class OfficialArtwork(
 )
 
 @Serializable
-data class Stat(
+data class PokemonStat(
     @SerialName("base_stat")
     val baseStat: Int? = null,
     @SerialName("effort")
     val effort: Int? = null,
     @SerialName("stat")
-    val stat: StatInfo? = null
+    val stat: NamedAPIResource? = null
 )
 
 @Serializable
-data class StatInfo(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class Type(
+data class PokemonType(
     @SerialName("slot")
     val slot: Int? = null,
     @SerialName("type")
-    val type: TypeInfo? = null
+    val type: NamedAPIResource? = null
 )
 
 @Serializable
-data class TypeInfo(
-    @SerialName("name")
-    val name: String? = null,
-    @SerialName("url")
-    val url: String? = null
+data class PokemonTypePast(
+    @SerialName("generation")
+    val generation: NamedAPIResource? = null,
+    @SerialName("types")
+    val types: PokemonType? = null
 )

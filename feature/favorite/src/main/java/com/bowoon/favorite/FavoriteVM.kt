@@ -29,14 +29,6 @@ class FavoriteVM @Inject constructor(
             initialValue = FavoritePokemonUiState.Loading,
             started = SharingStarted.WhileSubscribed(5000)
         )
-//    val favoritePokemonUiState: StateFlow<FavoriteUiState> =
-//        repository.observeAllFavoritePokemon().map {
-//            FavoriteUiState.Success(it)
-//        }.stateIn(
-//            scope = viewModelScope,
-//            initialValue = FavoriteUiState.Loading,
-//            started = SharingStarted.WhileSubscribed(5000)
-//        )
 
     fun updateFavoritePokemon(pokemon: Pokemon) {
         viewModelScope.launch { repository.updateFavoritePokemon(pokemon) }

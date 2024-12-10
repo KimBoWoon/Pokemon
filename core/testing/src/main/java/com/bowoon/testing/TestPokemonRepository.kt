@@ -1,48 +1,40 @@
 package com.bowoon.testing
 
 import com.bowoon.data.repository.PokemonRepository
-import com.bowoon.model.PokemonAbility
-import com.bowoon.model.PokemonList
-import com.bowoon.network.model.Ability
-import com.bowoon.network.model.AbilityInfo
-import com.bowoon.network.model.AbilityResponse
-import com.bowoon.network.model.Cries
-import com.bowoon.network.model.Form
-import com.bowoon.network.model.GameIndice
-import com.bowoon.network.model.Item
-import com.bowoon.network.model.Move
-import com.bowoon.network.model.MoveInfo
-import com.bowoon.network.model.MoveLearnMethod
+import com.bowoon.model.Evolution
+import com.bowoon.model.PokemonStatus
+import com.bowoon.network.model.EvolutionResponse
+import com.bowoon.network.model.NamedAPIResource
 import com.bowoon.network.model.OfficialArtwork
 import com.bowoon.network.model.Other
+import com.bowoon.network.model.PokemonCries
 import com.bowoon.network.model.PokemonHeldItem
 import com.bowoon.network.model.PokemonListResponse
+import com.bowoon.network.model.PokemonMove
+import com.bowoon.network.model.PokemonMoveVersion
 import com.bowoon.network.model.PokemonResponse
-import com.bowoon.network.model.Species
-import com.bowoon.network.model.Sprites
-import com.bowoon.network.model.Stat
-import com.bowoon.network.model.StatInfo
-import com.bowoon.network.model.Type
-import com.bowoon.network.model.TypeInfo
-import com.bowoon.network.model.Version
-import com.bowoon.network.model.VersionGroup
-import com.bowoon.network.model.VersionGroupDetail
+import com.bowoon.network.model.PokemonSprites
+import com.bowoon.network.model.PokemonStat
+import com.bowoon.network.model.PokemonStatusResponse
+import com.bowoon.network.model.PokemonType
+import com.bowoon.network.model.VersionGameIndex
 import com.bowoon.network.model.asExternalModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class TestPokemonRepository : PokemonRepository {
     private val pokemonListFlow: MutableSharedFlow<PokemonListResponse> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    private val pokemonFlow: MutableSharedFlow<AbilityResponse> =
+    private val pokemonFlow: MutableSharedFlow<PokemonStatusResponse> =
+        MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val pokemonEvolutionFlow: MutableSharedFlow<EvolutionResponse> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-    override suspend fun getPokemonList(url: String): PokemonList = pokemonListFlow.map { it.asExternalModel() }.first()
+    override fun getPokemonInfo(url: String): Flow<PokemonStatus> = pokemonFlow.map { it.asExternalModel() }
 
-    override fun getPokemonInfo(url: String): Flow<PokemonAbility> = pokemonFlow.map { it.asExternalModel() }
+    override fun getPokemonEvolution(url: String): Flow<Evolution> = pokemonEvolutionFlow.map { it.asExternalModel() }
 
     fun setPokemonList(list: PokemonListResponse) {
         pokemonListFlow.tryEmit(list)
@@ -51,7 +43,7 @@ class TestPokemonRepository : PokemonRepository {
     /**
      * 테스트를 위한 데이터 설정
      */
-    fun setPokemonInfo(ability: AbilityResponse) {
+    fun setPokemonInfo(ability: PokemonStatusResponse) {
         pokemonFlow.tryEmit(ability)
     }
 }
@@ -69,63 +61,63 @@ val pokemonList = PokemonListResponse(
     )
 )
 
-val pokemonAbility = AbilityResponse(
+val pokemonAbility = PokemonStatusResponse(
     abilities = listOf(
-        Ability(
-            ability = AbilityInfo(name = "AbilityName1", url = "AbilityUrl1"),
+        com.bowoon.network.model.PokemonAbility(
+            ability = NamedAPIResource(name = "AbilityName1", url = "AbilityUrl1"),
             isHidden = false,
             slot = 1
         ),
-        Ability(
-            ability = AbilityInfo(name = "AbilityName2", url = "AbilityUrl2"),
+        com.bowoon.network.model.PokemonAbility(
+            ability = NamedAPIResource(name = "AbilityName2", url = "AbilityUrl2"),
             isHidden = true,
             slot = 2
         )
     ),
     baseExperience = 39,
-    cries = Cries(latest = "latest", legacy = "legacy"),
+    cries = PokemonCries(latest = "latest", legacy = "legacy"),
     forms = listOf(
-        Form(name = "FormsName1", url = "FormsUrl1"),
-        Form(name = "FormsName2", url = "FormsUrl2")
+        NamedAPIResource(name = "FormsName1", url = "FormsUrl1"),
+        NamedAPIResource(name = "FormsName2", url = "FormsUrl2")
     ),
     gameIndices = listOf(
-        GameIndice(gameIndex = 20, version = Version(name = "VersionName1", url = "VersionUrl1")),
-        GameIndice(gameIndex = 10, version = Version(name = "VersionName2", url = "VersionUrl2"))
+        VersionGameIndex(gameIndex = 20, version = NamedAPIResource(name = "VersionName1", url = "VersionUrl1")),
+        VersionGameIndex(gameIndex = 10, version = NamedAPIResource(name = "VersionName2", url = "VersionUrl2"))
     ),
     height = 50,
     heldItems = listOf(
-        PokemonHeldItem(item = Item(name = "ItemName1", url = "ItemUrl1")),
-        PokemonHeldItem(item = Item(name = "ItemName2", url = "ItemUrl2"))
+        PokemonHeldItem(item = NamedAPIResource(name = "ItemName1", url = "ItemUrl1")),
+        PokemonHeldItem(item = NamedAPIResource(name = "ItemName2", url = "ItemUrl2"))
     ),
     id = 1,
     isDefault = true,
     locationAreaEncounters = "LocationAreaEncounters",
     moves = listOf(
-        Move(
-            MoveInfo(name = "MoveInfo1", url = "MoveUrl1"),
+        PokemonMove(
+            NamedAPIResource(name = "MoveInfo1", url = "MoveUrl1"),
             listOf(
-                VersionGroupDetail(
+                PokemonMoveVersion(
                     levelLearnedAt = 1,
-                    moveLearnMethod = MoveLearnMethod(name = "MoveLearnMethodName1", url = "MoveLearnMethodUrl1"),
-                    versionGroup = VersionGroup(name = "VersionGroupName1", url = "VersionGroupUrl1")
+                    moveLearnMethod = NamedAPIResource(name = "MoveLearnMethodName1", url = "MoveLearnMethodUrl1"),
+                    versionGroup = NamedAPIResource(name = "VersionGroupName1", url = "VersionGroupUrl1")
                 )
             )
         ),
-        Move(
-            MoveInfo(name = "MoveInfo2", url = "MoveUrl2"),
+        PokemonMove(
+            NamedAPIResource(name = "MoveInfo2", url = "MoveUrl2"),
             listOf(
-                VersionGroupDetail(
+                PokemonMoveVersion(
                     levelLearnedAt = 1,
-                    moveLearnMethod = MoveLearnMethod(name = "MoveLearnMethodName1", url = "MoveLearnMethodUrl1"),
-                    versionGroup = VersionGroup(name = "VersionGroupName1", url = "VersionGroupUrl1")
+                    moveLearnMethod = NamedAPIResource(name = "MoveLearnMethodName1", url = "MoveLearnMethodUrl1"),
+                    versionGroup = NamedAPIResource(name = "VersionGroupName1", url = "VersionGroupUrl1")
                 )
             )
         )
     ),
     name = "PokemonAbilityName",
     order = 0,
-    species = Species(name = "SpeciesName1", url = "SpeciesUrl1"),
-    sprites = Sprites(
+    species = NamedAPIResource(name = "SpeciesName1", url = "SpeciesUrl1"),
+    sprites = PokemonSprites(
         backDefault = "BackDefault",
         backFemale = "BackFemale",
         backShiny = "BackShiny",
@@ -135,7 +127,7 @@ val pokemonAbility = AbilityResponse(
         frontShiny = "FrontShiny",
         frontShinyFemale = "FrontShinyFemale",
         other = Other(
-            dreamWorld = Sprites(
+            dreamWorld = PokemonSprites(
                 backDefault = "BackDefault",
                 backFemale = "BackFemale",
                 backShiny = "BackShiny",
@@ -146,7 +138,7 @@ val pokemonAbility = AbilityResponse(
                 frontShinyFemale = "FrontShinyFemale",
                 other = null
             ),
-            home = Sprites(
+            home = PokemonSprites(
                 backDefault = "BackDefault",
                 backFemale = "BackFemale",
                 backShiny = "BackShiny",
@@ -161,7 +153,7 @@ val pokemonAbility = AbilityResponse(
                 frontDefault = "FrontDefault",
                 frontShiny = "FrontShiny"
             ),
-            showdown = Sprites(
+            showdown = PokemonSprites(
                 backDefault = "BackDefault",
                 backFemale = "BackFemale",
                 backShiny = "BackShiny",
@@ -175,27 +167,27 @@ val pokemonAbility = AbilityResponse(
         )
     ),
     stats = listOf(
-        Stat(
+        PokemonStat(
             baseStat = 1,
             effort = 2,
-            stat = StatInfo(name = "StatInfoName1", url = "StatInfoUrl1")
+            stat = NamedAPIResource(name = "StatInfoName1", url = "StatInfoUrl1")
         ),
-        Stat(
+        PokemonStat(
             baseStat = 3,
             effort = 4,
-            stat = StatInfo(name = "StatInfoName2", url = "StatInfoUrl2")
+            stat = NamedAPIResource(name = "StatInfoName2", url = "StatInfoUrl2")
         ),
-        Stat(
+        PokemonStat(
             baseStat = 5,
             effort = 6,
-            stat = StatInfo(name = "StatInfoName3", url = "StatInfoUrl3")
+            stat = NamedAPIResource(name = "StatInfoName3", url = "StatInfoUrl3")
         )
     ),
     types = listOf(
-        Type(slot = 1, type = TypeInfo(name = "TypeInfoName1", url = "TypeInfoUrl1")),
-        Type(slot = 2, type = TypeInfo(name = "TypeInfoName2", url = "TypeInfoUrl2")),
-        Type(slot = 3, type = TypeInfo(name = "TypeInfoName3", url = "TypeInfoUrl3")),
-        Type(slot = 4, type = TypeInfo(name = "TypeInfoName4", url = "TypeInfoUrl4"))
+        PokemonType(slot = 1, type = NamedAPIResource(name = "TypeInfoName1", url = "TypeInfoUrl1")),
+        PokemonType(slot = 2, type = NamedAPIResource(name = "TypeInfoName2", url = "TypeInfoUrl2")),
+        PokemonType(slot = 3, type = NamedAPIResource(name = "TypeInfoName3", url = "TypeInfoUrl3")),
+        PokemonType(slot = 4, type = NamedAPIResource(name = "TypeInfoName4", url = "TypeInfoUrl4"))
     ),
     weight = 305
 )
